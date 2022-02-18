@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (max-width: 768px) {
+
+    .carousel .thumbs-wrapper {
+      display: none;
+    }
+  
+    .carousel-root .carousel-status {
+      display: none;
+    }
+  
+    .carousel-root button {
+      display: none;
+    }
+  
+    .showProductDetail {
+      display: block !important;
+    }
+  }
+  
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-2em);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .show-animated p {
+    animation-name: fadeInDown;
+    animation-duration: 500ms;
+}
+
+.inline-box {
+  display: inline-block;
+}
