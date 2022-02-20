@@ -93,7 +93,7 @@ const shopReducer = (state = initialState, action) => {
     case SET_PRODUCT_QUICK_VIEW:
       return {
         ...state,
-        product: action.details,
+        productQuickView: action.details,
       };
 
     default:

@@ -23,7 +23,7 @@ import { setProduct, setCart, setCheckout } from '../redux';
 import PriceUtil from '../utils/PriceUtil';
 import ProductUtil from '../utils/ProductUtil';
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
 
   const { id } = useParams();
   const { checkout, product } = useSelector((state) => state.shop);
@@ -115,9 +115,9 @@ const ProductDetail = () => {
 
       <div className="md:flex md:flex-row">
           
-        <div className="bg-gray-100 p-6 md:basis-1/2">
+        <div className="bg-gray-100 p-6 md:basis-1/2 md:max-w-[50%]">
           
-          <button className="bg-blue-900 text-white text-center text-xs font-sans p-2 mb-2" onClick={backToProductList}>
+          <button className={`${props.isQuicView ? 'hidden' : ""} bg-blue-900 text-white text-center text-xs font-sans p-2 mb-2`} onClick={backToProductList}>
             <i className="bi bi-arrow-left"></i> Back to shop
           </button>   
 

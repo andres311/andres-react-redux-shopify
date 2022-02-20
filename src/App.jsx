@@ -12,6 +12,7 @@ import Cart from './pages/includes/Cart';
 import Navbar from './pages/includes/Navbar';
 import Signup from './pages/includes/Signup';
 import Footer from './pages/includes/Footer';
+import ProductQuickView from './pages/includes/ProductQuickView';
 
 const debug = process.env.NODE_ENV === 'production' ? void 0 : new DebugEngine();
 
@@ -24,6 +25,7 @@ const App = () => {
         <Router>
           <Navbar />
           <Cart />
+          <ProductQuickView />
           <Switch>
             <Route exact path="/" component={Products} />
             <Route exact path="/product/:id" component={ProductDetail} />
