@@ -10,55 +10,62 @@ import { setProducts, setPagination, setCategories, setCheckout } from '../redux
 
 //components
 import Loading from "../components/Loading";
-import OrderBy from '../components/OrderBy';
-import Pagination from "../components/Pagination";
-import Filters from "../components/Filters";
-import ProductList from "../components/ProductList";
-import Search from "../components/Search";
+import SelectOptions from '../components/SelectOptions';
+import Pagination from "./includes/Pagination";
+import Filters from "./includes/Filters";
+import ProductList from "./includes/ProductList";
+import Search from "./includes/Search";
+
+//Utils
+import PaginationUtil from '../utils/PaginationUtil';
+import ProductUtil from '../utils/ProductUtil';
 
 const Products = () => {
 
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.shop);
-  const { pagination } = useSelector((state) => state.shop);
-
+  const { products, pagination } = useSelector((state) => state.shop);
+  
   useEffect(() => {
 
-    const allProducts = async () => {
+    const loadProducts = async () => {
       const res = await ShopifyProvider.fetchAllProducts();
       dispatch(setProducts(res));
-      let cats = [];
-      res.forEach((p) => {
-        if(!cats.includes(p.productType)) cats.push(p.productType);
-      });
-      dispatch(setCategories(cats));
-      dispatch(setPagination(initializePagination(res)));
+      dispatch(setPagination(PaginationUtil.initializePagination(pagination, res.length)));
     };
 
-    const initializePagination = (res) => {
-      let paginationNew = {...pagination};
-      paginationNew.productsFrom = 0;
-      paginationNew.totalProducts = res.length;
-      paginationNew.totalPages = Math.ceil(paginationNew.totalProducts / paginationNew.productsPerPage);
-      paginationNew.productsTo = paginationNew.productsPerPage < paginationNew.totalProducts ? paginationNew.productsPerPage : paginationNew.totalProducts;
-      let p = [];
-      for (let i = 0; i < paginationNew.totalPages; i++) { p.push({index: i, pageNumber: i + 1}); }
-      paginationNew.pages = p; 
-      return paginationNew;
-    };
-    
     const createCheckout = async () => {
       const res = await ShopifyProvider.createCheckout();
       Cookies.set('checkout', res);
       dispatch(setCheckout(res));
     };
 
-    createCheckout();
+    const loadProductTypes = async () => {
+      const res = await ShopifyProvider.fetchAllProductTypes();
+      dispatch(setCategories(res));      
+    };
 
-    allProducts();
+    createCheckout();
+    loadProductTypes();
+    loadProducts();
 
   }, [dispatch]);
+
+
+  //WIP this is not working very well
+  const handleSortClick = (index) => {
+    const sortedProducts = ProductUtil.sortProducts([...products], index);
+    dispatch(setProducts(sortedProducts));
+  }
+
+  //sort: every item in this array need to be implemented in ProductUtil.sortProducts
+  const sortByOptions = [
+    {index: 0, title: 'Sort by Default', icon: 'bi bi-arrow-down-up', action: () => handleSortClick(-1), active: false},
+    {index: 1, title: 'Sort by price: low to high', icon: 'bi bi-sort-numeric-down', action: () => handleSortClick(0), active: false},
+    {index: 2, title: 'Sort by price: high to low', icon: 'bi bi-sort-numeric-up', action: () => handleSortClick(1), active: false},
+    {index: 3, title: 'Sort by title: A to Z', icon: 'bi bi-sort-alpha-down', action: () => handleSortClick(2), active: false},
+    {index: 4, title: 'Sort by title: Z to A', icon: 'bi bi-sort-alpha-up', action: () => handleSortClick(3), active: false},
+  ]
 
 
   if (!products) return <Loading />
@@ -79,7 +86,7 @@ const Products = () => {
         </div>
 
         <div className="w-full flex justify-end mb-2">
-          <OrderBy title="Sort by" icon="bi bi-chevron-compact-down" />
+          <SelectOptions title="Sort by" icon="bi bi-arrow-down-up" options={sortByOptions}/>
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

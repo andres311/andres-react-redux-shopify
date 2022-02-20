@@ -7,6 +7,7 @@ import {
   , SET_PAGINATION
   , SET_CATEGORIES
   , SET_FILTERS
+  , SET_PRODUCT_QUICK_VIEW
 } from './type';
 
 export const setProducts = (x) => {
@@ -59,6 +60,13 @@ export const setCategories = (x) => {
 export const setFilters = (x) => {
   return {
     type: SET_FILTERS,
+    details: x,
+  };
+};
+
+export const setProductQuickView = (x) => {
+  return {
+    type: SET_PRODUCT_QUICK_VIEW,
     details: x,
   };
 };

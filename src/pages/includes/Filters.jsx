@@ -1,10 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPagination, setFilters } from '../redux';
+import { setPagination, setFilters } from '../../redux';
 import { Dialog, Transition } from '@headlessui/react'
 
 //constants
-import {cleanFiltersText} from '../constants/texts';
+import {cleanFiltersText} from '../../constants/texts';
+
+//Utils
+import PaginationUtil from '../../utils/PaginationUtil';
 
 const Filters = () => {
 
@@ -14,6 +17,7 @@ const Filters = () => {
   const { pagination } = useSelector((state) => state.shop);
   const { filters } = useSelector((state) => state.shop);
   const { categories } = useSelector((state) => state.shop);
+  
   const [ isOpenFIlters, setIsOpenFilters ] = useState(false);
 
   const handdleSetCategoryClick = (evt) => {
@@ -22,17 +26,7 @@ const Filters = () => {
 
     let filtersNew = {...filters};
     filtersNew.productType = productType;
-
-    let paginationNew = {...pagination};
-    productType !== cleanFiltersText ? paginationNew.totalProducts = products.filter((x) => productType ? x.productType === productType : true).length: paginationNew.totalProducts = products.length;
-    paginationNew.totalPages = Math.ceil(paginationNew.totalProducts / paginationNew.productsPerPage);
-    paginationNew.currentPage = 0;
-    paginationNew.productsFrom = 0;
-    paginationNew.productsTo = paginationNew.productsPerPage < paginationNew.totalProducts ? paginationNew.productsPerPage : paginationNew.totalProducts;
-    let p = [];
-    for (let i = 0; i < paginationNew.totalPages; i++) { p.push({index: i, pageNumber: i + 1}); }
-    paginationNew.pages = p; 
-
+    const paginationNew = PaginationUtil.paginate(pagination, products, filtersNew, cleanFiltersText);
     dispatch(setPagination(paginationNew));
     dispatch(setFilters(filtersNew));
     closeFilters();

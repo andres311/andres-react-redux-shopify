@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 
-//ShopifyProvider
-import ShopifyProvider from '../services/ShopifyBuyManager';
-
 //redux
-import { setCart, setCheckout } from '../redux';
+import { setCart } from '../../redux';
 
 const Navbar = () => {
   
@@ -16,12 +13,6 @@ const Navbar = () => {
   const openCart = () => {
     dispatch(setCart());
   };
-
-  useEffect(() => {
-
-
-
-  }, [dispatch]);
 
   return (
     <>

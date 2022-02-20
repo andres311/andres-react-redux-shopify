@@ -19,6 +19,10 @@ import { Carousel } from 'react-responsive-carousel';
 //redux
 import { setProduct, setCart, setCheckout } from '../redux';
 
+//Utils
+import PriceUtil from '../utils/PriceUtil';
+import ProductUtil from '../utils/ProductUtil';
+
 const ProductDetail = () => {
 
   const { id } = useParams();
@@ -30,7 +34,6 @@ const ProductDetail = () => {
   const [ variant, setVariant ] = useState(null);
   const [ isDisplayProductDetail, setIsDisplayProductDetail] = useState(false);
   const [ price, setPrice ] = useState("");
-  const [ currency, setCurrency ] = useState("");
   const [ options, setOptions] = useState([]);
 
   const productDetailRef = useRef(null);
@@ -79,58 +82,26 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-
-    //price: is the price between the min price and the max price of the variants and is displayed when no variant is selected. (Example $100-$150)
-    const getPriceRange = (product) => {
-      if (product){
-        let currentCurrency = product.variants[0].priceV2.currencyCode;
-        let minPrice = 0;
-        let maxPrice = 0;
-        product.variants.forEach(variant => {
-          if(minPrice === 0 || (minPrice > variant.priceV2.amount)){
-          minPrice = parseFloat(variant.priceV2.amount).toFixed(2);
-        }
-        if(maxPrice < variant.priceV2.amount){
-          maxPrice = parseFloat(variant.priceV2.amount).toFixed(2);
-          }
-        });
-        maxPrice === minPrice ? setPrice(currentCurrency + ' ' + maxPrice) : setPrice(currentCurrency + ' ' + minPrice + " - " + currentCurrency + ' ' + maxPrice);
-        setCurrency(currentCurrency);
-      }
-      return price;
-    }
-    
-    //get product options (WIP), check out the css class wip (".wip")
-    const getOptions = (product) => {
-      const opts = [];
-      if (product){
-        product.options.forEach(option => {
-          console.log(option.name);
-          let vals = [];
-          option.values.forEach(value => {
-            console.log(value.value);
-            vals.push(value.value);
-          });
-          opts.push({name: option.name, values: vals});
-        });
-      }
-      console.log(opts)
-      return opts;
-    }
-    
+  
     const fetchProduct = async () => {
       const res = await ShopifyProvider.fetchAllProductWithId(id);
       dispatch(setProduct(res));
-      getPriceRange(res);
-      //setOptions(getOptions(res));
+      setPrice(PriceUtil.getPriceRange(res));
+      setOptions(ProductUtil.getOptions(res));
     };
 
+    if(product && product.id === id){
+      //do nothing
+    }else{
+      fetchProduct();
+    }
+
     fetchProduct();
-    
+
     if(!isMobile){
       setIsDisplayProductDetail(true);
     }
-    
+   
   }, [id, dispatch]);
 
   if (!product) return <Loading />

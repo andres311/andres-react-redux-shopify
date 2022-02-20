@@ -1,4 +1,5 @@
 import Client from 'shopify-buy';
+import shopifyUtil from './shopifyBuyExtension/shopifyGraphqlUtil';
 
 const client = Client.buildClient({
   storefrontAccessToken: process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
@@ -9,13 +10,9 @@ export default class ShopifyProvider {
 
   static async createCheckout() {
     const checkoutId = localStorage.checkout
-    if(checkoutId){
-      const res = client.checkout.fetch(checkoutId);
-      return res;
-    } else {
-      const res = await client.checkout.create();
-      return res;
-    }
+    let result;
+    checkoutId ? result = await client.checkout.fetch(checkoutId) : result = await client.checkout.create();
+    return result;
   }
 
   static async fetchAllProducts() {
@@ -34,18 +31,17 @@ export default class ShopifyProvider {
   }
 
   static async addItemToCheckout(variantId, quantity, checkout) {
-    const lineItemsToAdd = [
-      {
-        variantId,
-        quantity,
-      },
-    ];
-    const res = await client.checkout.addLineItems(checkout, lineItemsToAdd);
+    const res = await client.checkout.addLineItems(checkout, [{variantId, quantity}]);
     return res;
   }
 
   static async removeItemsFromCheckout(checkoutId, linesToRemove) {
     const res = await client.checkout.removeLineItems(checkoutId, linesToRemove);
+    return res;
+  }
+
+  static async fetchAllProductTypes() {
+    const res = await shopifyUtil.fetchAllProductTypes();
     return res;
   }
 

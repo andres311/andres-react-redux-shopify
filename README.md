@@ -1,14 +1,14 @@
 # README (WIP)
 
 ## What is this?
-This is a test project with reactjs + redux + shopify + tailwind.
+This is a store front test project with reactjs + redux + shopify + tailwind.
 
 ## Objective
 Learn a little bit about reactjs, redux shopify, and tailwind... please don't use this as a project. It's just a test.
 
 ## How to use?
 You need to setup your Shopify storefront access token and storefront url in the .env file
-there is a sample store in the .env.sample file, including a token of a test Shopify account (I don't know how if the token will be valid forever, it's just a sample token that I found online)
+there is a sample store in the .env.sample file, including a token of a test Shopify account (I don't know if the token will be valid forever, it's just a sample token that I found online)
 
 ```cp .env.sample .env```
 

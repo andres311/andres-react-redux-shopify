@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 
-//components
-import Cart from './components/Cart';
-import Navbar from './components/Navbar';
-import Signup from './components/Signup';
-import Footer from './components/Footer';
+//fragments
+import Cart from './pages/includes/Cart';
+import Navbar from './pages/includes/Navbar';
+import Signup from './pages/includes/Signup';
+import Footer from './pages/includes/Footer';
 
 const debug = process.env.NODE_ENV === 'production' ? void 0 : new DebugEngine();
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 //constants
-import { reciveUpdatesText, signUpForEmailsTitle, signUpButtonText } from "../constants/texts";
-import { emailRegex } from "../constants/regex";
+import { reciveUpdatesText, signUpForEmailsTitle, signUpButtonText } from "../../constants/texts";
+import { emailRegex } from "../../constants/regex";
 
 //icons
 import 'bootstrap-icons/font/bootstrap-icons.css';

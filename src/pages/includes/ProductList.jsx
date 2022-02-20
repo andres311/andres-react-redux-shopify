@@ -1,40 +1,32 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 
 //components
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 
 //constants
-import {cleanFiltersText} from '../constants/texts';
+import { cleanFiltersText } from '../../constants/texts';
+import { setProduct, setProductQuickView } from '../../redux';
+
+//Utils
+import PriceUtil from '../../utils/PriceUtil';
 
 const ProductList = () => {
+
+  const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.shop);
   const { pagination } = useSelector((state) => state.shop);
   const { filters } = useSelector((state) => state.shop);
-
-  //price: is the price between the min price and the max price of the variants and is displayed when no variant is selected. (Example $100-$150)
-  const getPriceRange = (product) => {
-    let price;
-    if (product){
-      let currency = product.variants[0].priceV2.currencyCode;
-      let minPrice = 0;
-      let maxPrice = 0;
-      product.variants.forEach(variant => {
-        if(minPrice === 0 || (minPrice > variant.priceV2.amount)){
-          minPrice = parseFloat(variant.priceV2.amount).toFixed( 2 );
-        }
-        if(maxPrice < variant.priceV2.amount){
-          maxPrice = parseFloat(variant.priceV2.amount).toFixed( 2 );
-        }
-      });
-      maxPrice === minPrice ? price = (currency + ' ' + maxPrice) : price = (currency + ' ' + minPrice + " - " + currency + ' ' + maxPrice);
-    }    
-    return price;
+ 
+  const openQuickView = (id) => {
+    const productToView = products.find(product => product.id === id);
+    dispatch(setProduct(productToView));
+    dispatch(setProductQuickView(true));
   }
 
-  if (!products) return <Loading />
+  if (!products) return null;
   
   return (
     <>
@@ -59,8 +51,8 @@ const ProductList = () => {
             <Link to={`/product/${product.id}`} >
               <h3 className="mt-4 text-sm text-gray-700 pr-2 pl-2">{product.title}</h3>
             </Link>
-            <p className="mt-1 text-lg font-medium text-gray-900 pr-2 pl-2">{getPriceRange(product)}</p>
-            <button className="hidden mt-4 bg-range-blue text-white font-bold py-2 px-4 rounded-md shadow-lg">
+            <p className="mt-1 text-lg font-medium text-gray-900 pr-2 pl-2">{ PriceUtil.getPriceRange(product)}</p>
+            <button className="mt-4 bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-lg" onClick={() => openQuickView(product.id)}>
               Add to cart
             </button>  
           </div>

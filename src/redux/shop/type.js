@@ -6,3 +6,4 @@ export const REMOVE_CART    = "REMOVE_CART";
 export const SET_PAGINATION = "SET_PAGINATION";
 export const SET_CATEGORIES = "SET_CATEGORIES";
 export const SET_FILTERS    = "SET_FILTERS";
+export const SET_PRODUCT_QUICK_VIEW = "SET_PRODUCT_QUICK_VIEW";

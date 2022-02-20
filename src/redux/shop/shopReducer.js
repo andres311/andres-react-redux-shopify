@@ -9,6 +9,7 @@ import {
   , SET_PAGINATION
   , SET_CATEGORIES
   , SET_FILTERS
+  , SET_PRODUCT_QUICK_VIEW
 } from './type';
 
 const paginationInit = {
@@ -34,6 +35,7 @@ const initialState = {
   pagination: paginationInit,
   categories: [],
   filters: filtersInit,
+  productQuickView: false,
 };
 
 const shopReducer = (state = initialState, action) => {
@@ -86,6 +88,12 @@ const shopReducer = (state = initialState, action) => {
       return {
         ...state,
         filters: action.details,
+      };
+
+    case SET_PRODUCT_QUICK_VIEW:
+      return {
+        ...state,
+        product: action.details,
       };
 
     default:

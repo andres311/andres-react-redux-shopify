@@ -4,10 +4,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Link } from "react-router-dom";
 
 //ShopifyProvider
-import ShopifyProvider from '../services/ShopifyBuyManager';
+import ShopifyProvider from '../../services/ShopifyBuyManager';
 
 //redux
-import { removeCart, setCart, setCheckout } from '../redux';
+import { removeCart, setCart, setCheckout } from '../../redux';
 
 const Cart = () => {
 
@@ -77,7 +77,7 @@ const Cart = () => {
                               </button>
                             </div>
 
-                            <ul role="list" className="divide-y divide-gray-200">
+                            <ul className="divide-y divide-gray-200">
                               {checkout.lineItems.map((item) => (
                                 <li key={item.id} className="py-6 flex">
                                   <div className="flex-shrink-0 w-24 h-26 border border-gray-200 rounded-md overflow-hidden">
