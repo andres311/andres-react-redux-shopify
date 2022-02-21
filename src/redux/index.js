@@ -7,4 +7,5 @@ export {
   , setPagination
   , setCategories
   , setFilters
+  , setProductQuickView
 } from '../redux/shop/shopActions';

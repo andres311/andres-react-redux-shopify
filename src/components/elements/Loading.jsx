@@ -1,5 +1,5 @@
 import React from "react";
-import LoadingSpinner from "../assets/Spinner-1s-40px.svg";
+import LoadingSpinner from "../../assets/Spinner-1s-40px.svg";
 
 const Loading = () => {
   return (

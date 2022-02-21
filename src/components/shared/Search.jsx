@@ -2,7 +2,7 @@ import React, {} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 //redux
-import { setPagination, setFilters } from '../redux';
+import { setPagination, setFilters } from '../../redux';
 
 const Search = () => {
 
