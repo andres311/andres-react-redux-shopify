@@ -18,7 +18,6 @@ There is a sample environment file (.env.sample), which includes a token of a te
 
 ```
 git clone https://github.com/andres311/andres-react-redux-shopify.git && cd andres-react-redux-shopify
-
 ```
 
 2 - In the directory of the project, make your .env file:
@@ -41,7 +40,7 @@ yarn
 yarn start
 ```
 
-5- Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+6 - Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
 ## What's next?
