@@ -1,28 +1,48 @@
 # README (WIP)
 
 ## What is this?
-This is a simple store front test project using reactjs + redux + shopify + tailwind.
+A simple storefront test project using reactjs + redux + shopify + tailwind.
 
 ## Objective
-Learn a little bit about reactjs, redux shopify, and tailwind... please don't use this as a project. It's just a test.
+Learn about reactjs, redux shopify, and tailwind. 
+
+## Demo
+
+[https://andres-react-redux-shopify.archondo.xyz](https://andres-react-redux-shopify.archondo.xyz)
 
 ## How to use?
-You need to setup your Shopify storefront access token and url in the .env file
-there is a sample store in the .env.sample file, including the token of a test Shopify account (I don't know if the token will be valid forever, it's just a sample token that I found online)
+You need to set up your Shopify storefront access token and URL in the .env file.\
+There is a sample environment file (.env.sample), which includes a token of a test Shopify account.
 
-```cp .env.sample .env```
+1 - Get the code from the Github repo
 
-In the project directory, you can run:
+```
+git clone https://github.com/andres311/andres-react-redux-shopify.git && cd andres-react-redux-shopify
 
-```yarn```
+```
 
-to install dependencies, and then:
+2 - In the directory of the project, make your .env file:
 
-```yarn start```
+```
+cp .env.sample .env
+```
 
-to run the app in the development mode,\
-then open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3 - Add your key and URL in the .env file
+
+4 - Install dependencies:
+
+```
+yarn
+```
+
+5 - Run the app in the development mode :
+
+```
+yarn start
+```
+
+5- Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
 ## What's next?
-This test project will be another abandoned test project on the web, but I'm sure I will be using it to test and learn more (adding features and refactoring). There are some (easy to see) limitations in this implementation that will be fun to improve in the future project.
+This test project will be another abandoned test project on the web, but I'm sure I will be using it to learn more (adding features and refactoring). There are some (easy to see) limitations in this implementation that will be fun to improve in the future.
