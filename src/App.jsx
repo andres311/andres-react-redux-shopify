@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Provider as StyletronProvider, DebugEngine } from 'styletron-react';
 import { Client as Styletron } from 'styletron-engine-atomic';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom';
 import Cookies from 'js-cookie';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 //pages
 import Products from './pages/Products';
