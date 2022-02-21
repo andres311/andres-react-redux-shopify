@@ -25,6 +25,7 @@ const paginationInit = {
 const filtersInit = {
     productType: false
   , searchInputText: ''
+  , isOpenCategoty: false
 }
 
 const initialState = {
