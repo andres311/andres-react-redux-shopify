@@ -1,16 +1,14 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
 export default function SelectOptions(props) {
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
- 
   return (
     <Menu as="div" className="relative inline-block text-left float-right">
       <div>
         <Menu.Button className="mt-4 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           {props.title}
-          <i className={`ml-2 ${props.options[selectedIndex].icon}`}></i>
+          <i className={`ml-2 ${props.options[props.selectedIndex].icon}`}></i>
         </Menu.Button>
       </div>
 
@@ -27,7 +25,7 @@ export default function SelectOptions(props) {
           <div className="py-1">
             {props.options.map(({title, icon, action, index}) => (
               <Menu.Item key={index}>
-                <button onClick={action} className={`${(selectedIndex === 0 && index === 0) ? 'hidden' : ''} block px-4 py-2 text-sm ${selectedIndex === index ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}`} >
+                <button onClick={action} className={`${(props.selectedIndex === 0 && index === 0) ? 'hidden' : ''} block px-4 py-2 text-sm ${props.selectedIndex === index ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}`} >
                   {title} <i className={`${icon} ml-2`}></i>
                 </button>
               </Menu.Item>

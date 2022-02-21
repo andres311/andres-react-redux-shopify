@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 //ShopifyProvider
@@ -25,6 +25,8 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const { products, pagination } = useSelector((state) => state.shop);
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
   
   useEffect(() => {
 
@@ -47,17 +49,18 @@ const Products = () => {
 
   //WIP this is not working very well
   const handleSortClick = (index) => {
+    setSelectedIndex(index);
     const sortedProducts = ProductUtil.sortProducts([...products], index);
     dispatch(setProducts(sortedProducts));
   }
 
   //sort: every item in this array need to be implemented in ProductUtil.sortProducts
   const sortByOptions = [
-    {index: 0, title: 'Sort by Default', icon: 'bi bi-arrow-down-up', action: () => handleSortClick(-1), active: false},
-    {index: 1, title: 'Sort by price: low to high', icon: 'bi bi-sort-numeric-down', action: () => handleSortClick(0), active: false},
-    {index: 2, title: 'Sort by price: high to low', icon: 'bi bi-sort-numeric-up', action: () => handleSortClick(1), active: false},
-    {index: 3, title: 'Sort by title: A to Z', icon: 'bi bi-sort-alpha-down', action: () => handleSortClick(2), active: false},
-    {index: 4, title: 'Sort by title: Z to A', icon: 'bi bi-sort-alpha-up', action: () => handleSortClick(3), active: false},
+    {index: 0, title: 'Sort by Default', icon: 'bi bi-arrow-down-up', action: () => handleSortClick(0), active: false},
+    {index: 1, title: 'Sort by price: low to high', icon: 'bi bi-sort-numeric-down', action: () => handleSortClick(1), active: false},
+    {index: 2, title: 'Sort by price: high to low', icon: 'bi bi-sort-numeric-up', action: () => handleSortClick(2), active: false},
+    {index: 3, title: 'Sort by title: A to Z', icon: 'bi bi-sort-alpha-down', action: () => handleSortClick(3), active: false},
+    {index: 4, title: 'Sort by title: Z to A', icon: 'bi bi-sort-alpha-up', action: () => handleSortClick(4), active: false},
   ]
 
   if (!products) return <Loading />
@@ -72,14 +75,15 @@ const Products = () => {
           Sample Store
         </h2>
 
-        <div className="mb-2 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-          <Filters />
-          <Search />
-        </div>
-
-        <div className="w-full flex justify-end mb-2">
-          <SelectOptions title="Sort by" icon="bi bi-arrow-down-up" options={sortByOptions}/>
-        </div>
+        <section className="sm:block hidden">
+          <div className="mb-2 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+            <Filters />
+            <Search />
+          </div>
+          <div className="w-full flex justify-end mb-2">
+            <SelectOptions title="Sort by" icon="bi bi-arrow-down-up" options={sortByOptions} selectedIndex={selectedIndex}/>
+          </div>
+        </section>
 
         <div className="mb-4 grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           <ProductList />

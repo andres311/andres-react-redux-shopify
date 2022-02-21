@@ -1,7 +1,9 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPagination, setFilters } from '../../redux';
 import { Dialog, Transition } from '@headlessui/react'
+
+//redux
+import { setPagination, setFilters } from '../../redux';
 
 //constants
 import {cleanFiltersText} from '../../constants/texts';
@@ -19,18 +21,17 @@ const Filters = () => {
   const { filters } = useSelector((state) => state.shop);
   const { categories } = useSelector((state) => state.shop);
   
-  const [ isOpenFIlters, setIsOpenFilters ] = useState(false);
-
   const handdleSetCategoryClick = (evt) => {
 
     let productType = evt.target.textContent
 
     let filtersNew = {...filters};
     filtersNew.productType = productType;
+    filtersNew.searchInputText = '';
+    filtersNew.isOpenCategoty = false;
     const paginationNew = PaginationUtil.paginate(pagination, products, filtersNew, cleanFiltersText);
     dispatch(setPagination(paginationNew));
     dispatch(setFilters(filtersNew));
-    closeFilters();
   };
 
   useEffect(() => {
@@ -47,16 +48,20 @@ const Filters = () => {
   }, [dispatch]);
 
   const closeFilters = () => {
-    setIsOpenFilters(false);
+    let filtersNew = {...filters};
+    filtersNew.isOpenCategoty = false;
+    dispatch(setFilters(filtersNew));
   }
 
   const openFilters = () => {
-    setIsOpenFilters(true);
+    let filtersNew = {...filters};
+    filtersNew.isOpenCategoty = true;
+    dispatch(setFilters(filtersNew));
   }
 
   return (
     <>
-      <Transition.Root show={isOpenFIlters} as={Fragment}>
+      <Transition.Root show={filters.isOpenCategoty} as={Fragment}>
         <Dialog initialFocus={ref} as="div" className="fixed inset-0 overflow-hidden z-10" onClose={closeFilters}>
           <div className="absolute inset-0 overflow-hidden">
             <Transition.Child

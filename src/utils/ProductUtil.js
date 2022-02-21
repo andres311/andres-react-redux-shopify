@@ -54,6 +54,6 @@ export default class ProductUtil {
           result += lineItem.quantity;
         });
       }
-      return result;
+      return result > 0 ? result : "";
     }
 }
