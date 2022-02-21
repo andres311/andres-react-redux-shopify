@@ -110,7 +110,7 @@ const ProductDetail = (props) => {
   }else{
     return (
       <>
-        <ScrollToTop />
+        {props.isQuicView ? null : <ScrollToTop />}
         
         <div className="md:container md:mx-auto bg-gray-100 mb-4">
 
