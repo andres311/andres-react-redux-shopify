@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
 
 //ShopifyProvider
 import ShopifyProvider from '../services/ShopifyBuyManager';
 
 //redux
-import { setProducts, setPagination, setCategories, setCheckout } from '../redux';
+import { setProducts, setPagination, setCategories } from '../redux';
 
 //components
-import Loading from "../components/Loading";
-import SelectOptions from '../components/SelectOptions';
-import Pagination from "./includes/Pagination";
-import Filters from "./includes/Filters";
-import ProductList from "./includes/ProductList";
-import Search from "./includes/Search";
+import Loading from "../components/elements/Loading";
+import SelectOptions from '../components/elements/SelectOptions';
+
+import Pagination from "../components/shared/Pagination";
+import Filters from "../components/shared/Filters";
+import ProductList from "../components/shared/ProductList";
+import Search from "../components/shared/Search";
 
 //Utils
 import PaginationUtil from '../utils/PaginationUtil';
@@ -34,18 +34,11 @@ const Products = () => {
       dispatch(setPagination(PaginationUtil.initializePagination(pagination, res.length)));
     };
 
-    const createCheckout = async () => {
-      const res = await ShopifyProvider.createCheckout();
-      Cookies.set('checkout', res);
-      dispatch(setCheckout(res));
-    };
-
     const loadProductTypes = async () => {
       const res = await ShopifyProvider.fetchAllProductTypes();
       dispatch(setCategories(res));      
     };
 
-    createCheckout();
     loadProductTypes();
     loadProducts();
 
@@ -66,7 +59,6 @@ const Products = () => {
     {index: 3, title: 'Sort by title: A to Z', icon: 'bi bi-sort-alpha-down', action: () => handleSortClick(2), active: false},
     {index: 4, title: 'Sort by title: Z to A', icon: 'bi bi-sort-alpha-up', action: () => handleSortClick(3), active: false},
   ]
-
 
   if (!products) return <Loading />
 

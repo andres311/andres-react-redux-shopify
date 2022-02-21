@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPagination, setFilters } from '../../redux';
 import { Dialog, Transition } from '@headlessui/react'
@@ -12,6 +12,7 @@ import PaginationUtil from '../../utils/PaginationUtil';
 const Filters = () => {
 
   const dispatch = useDispatch();
+  const ref = useRef(null)
 
   const { products } = useSelector((state) => state.shop);
   const { pagination } = useSelector((state) => state.shop);
@@ -56,7 +57,7 @@ const Filters = () => {
   return (
     <>
       <Transition.Root show={isOpenFIlters} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 overflow-hidden z-10" onClose={closeFilters}>
+        <Dialog initialFocus={ref} as="div" className="fixed inset-0 overflow-hidden z-10" onClose={closeFilters}>
           <div className="absolute inset-0 overflow-hidden">
             <Transition.Child
               as={Fragment}

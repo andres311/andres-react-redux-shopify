@@ -1,33 +1,13 @@
-import React, {useEffect, Fragment, useState, useRef } from 'react'
-import { Dialog, RadioGroup, Transition } from '@headlessui/react'
+import React, { Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 
-import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {isMobile} from 'react-device-detect';
 
-//ShopifyProvider
-import ShopifyProvider from '../../services/ShopifyBuyManager';
-
-//constants
-import { productDetailsText, freeShippingText, addToCartButtonText } from "../../constants/texts";
-
-import ProductDetail from '../ProductDetail';
+//componentes
+import ProductDetail from '../../pages/ProductDetail';
 
 //redux
 import { setProductQuickView } from '../../redux';
-
-//Utils
-import PriceUtil from '../../utils/PriceUtil';
-import ProductUtil from '../../utils/ProductUtil';
-
-//
-// import ProductQuickView from "./components/ProductQuickView"; //          
-// <ProductQuickView />
-//
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function ProductQuickView(props) {
   
@@ -37,7 +17,6 @@ export default function ProductQuickView(props) {
   const closeProductQuickView = () => {
     dispatch(setProductQuickView(false));
   }
-
 
   if (product){
     return (
@@ -73,7 +52,7 @@ export default function ProductQuickView(props) {
                 <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                   <button
                     type="button"
-                    className="absolute p-2 top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
+                    className="absolute p-2 top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-7 md:top-7 lg:top-7 sm:right-6 md:right-6 lg:right-8"
                     onClick={closeProductQuickView}
                   >
                     <span className="sr-only">Close</span> 

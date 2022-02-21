@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setPagination } from '../../redux';
 
 //components
-import Loading from "../../components/Loading";
+import Loading from "../../components/elements/Loading";
 
 const Pagination = () => {
 

@@ -7,7 +7,7 @@ export default class PriceUtil {
   //price: is the price between the min price and the max price of the variants and is displayed when no variant is selected. (Example $100-$150)
   static getPriceRange (product) {
     let price;
-    if (product){
+    if (product && product.variants){
       let currency = product.variants[0].priceV2.currencyCode;
       let minPrice = 0;
       let maxPrice = 0;

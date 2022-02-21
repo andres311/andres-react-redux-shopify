@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react'
 import { Link } from "react-router-dom";
@@ -12,8 +12,10 @@ import { removeCart, setCart, setCheckout } from '../../redux';
 const Cart = () => {
 
   const dispatch = useDispatch();
-  const { isCartOpen, checkout } = useSelector((state) => state.shop);
-  
+  const ref = useRef(null)
+  const { isCartOpen } = useSelector((state) => state.shop);
+  const { checkout } = useSelector((state) => state.shop);
+
   const closeCart = () => {
     dispatch(removeCart());
   };
@@ -30,7 +32,7 @@ const Cart = () => {
     return (
       <>
         <Transition.Root show={isCartOpen} as={Fragment}>
-          <Dialog as="div" className="fixed inset-0 overflow-hidden z-10" onClose={closeCart}>
+          <Dialog initialFocus={ref} as="div" className="fixed inset-0 overflow-hidden z-10" onClose={closeCart}>
             <div className="absolute inset-0 overflow-hidden">
               <Transition.Child
                 as={Fragment}
@@ -124,7 +126,7 @@ const Cart = () => {
                         <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
                           <p>
                             or {' '}
-                            <Link to="/store"  type="button" className="text-indigo-600 font-medium hover:text-indigo-500" onClick={closeCart}>
+                            <Link to="/"  type="button" className="text-indigo-600 font-medium hover:text-indigo-500" onClick={closeCart}>
                               Continue Shopping<span aria-hidden="true"> &rarr;</span>
                             </Link>
                           </p>

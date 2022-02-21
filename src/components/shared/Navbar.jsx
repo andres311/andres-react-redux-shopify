@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 
 //redux
 import { setCart } from '../../redux';
+
+//Utils
+import ProductUtil from '../../utils/ProductUtil';
 
 const Navbar = () => {
   
@@ -26,6 +29,7 @@ const Navbar = () => {
           </Link>
           <button onClick={openCart} className={`text-2xl float-right text-blue-600 hover:text-blue-800`}>
             <i className={`bi bi-bag${(checkout && checkout.lineItems && checkout.lineItems.length > 0) ? "-fill" : ""}`}></i>
+            <span className="text-lg">{ ProductUtil.getCartQty(checkout) }</span>
           </button>
         </div>
       </nav>

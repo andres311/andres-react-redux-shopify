@@ -1,6 +1,7 @@
 //just a sample footer
 
 import React from "react";
+import Signup from "./Signup";
 
 const socialMedia = [
     {name: "facebook", url: "https://google.com", color: "blue-600"}
@@ -25,43 +26,12 @@ const socialMedia = [
 const Footer = () => {
   return (
     <>
-      <footer className="footer-1 bg-gray-100 py-8 sm:py-12 text-center">
+      <footer className="footer-1 bg-gray-100 py-6 sm:py-8 text-center">
         <div className="container mx-auto px-4">
           <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
-            <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/4">
-              <h5 className="text-xl font-bold mb-6">Features</h5>
-              <ul className="list-none footer-links">
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Features One</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Features Two</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Features Tree</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Features Four</a>
-                </li>
-              </ul>
-            </div>
-            <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/4 mt-8 sm:mt-0">
-              <h5 className="text-xl font-bold mb-6">Resources</h5>
-              <ul className="list-none footer-links">
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Resource</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Resource name</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Another resource</a>
-                </li>
-                <li className="mb-2">
-                  <a href="https://google.com" className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Final resource</a>
-                </li>
-              </ul>
-            </div>
+            <div className="px-4 sm:w-full md:w-2/4 xl:w-2/4 lg:w-2/4">
+              <Signup />
+            </div>  
             <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/4 mt-8 md:mt-0">
               <h5 className="text-xl font-bold mb-6">About</h5>
               <ul className="list-none footer-links">
@@ -94,7 +64,6 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-
           <div className="bg-gray-100 pt-2">
             <div className="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col max-w-screen-lg items-center">
                 <h5 className="text-xl font-bold mb-6 sm:text-center xl:text-left">
@@ -110,7 +79,6 @@ const Footer = () => {
                 <div className="my-5 mt-10">© Copyright 2022. All Rights Reserved.</div>
             </div>
           </div>
-
         </div>
       </footer>
     </>
